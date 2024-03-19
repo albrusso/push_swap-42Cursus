@@ -6,7 +6,7 @@
 /*   By: albrusso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 11:49:35 by albrusso          #+#    #+#             */
-/*   Updated: 2023/04/18 17:47:03 by albrusso         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:05:47 by albrusso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "bonus/get_next_line/get_next_line.h"
+# include "bonus/gnl/get_next_line.h"
 
 typedef struct s_stack
 {

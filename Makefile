@@ -6,7 +6,7 @@
 #    By: albrusso <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 16:21:18 by albrusso          #+#    #+#              #
-#    Updated: 2023/04/19 14:36:14 by albrusso         ###   ########.fr        #
+#    Updated: 2024/03/19 15:10:16 by albrusso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,105 +15,110 @@
 #                                  CONFIG                                      #
 ################################################################################
 
-NAME	=	push_swap
-CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g
-RM		=	rm -f
+NAME		=	push_swap
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror
+OBJ_DIR		=	.obj
+SIZE		=	50
 
 ################################################################################
 #                                  COLORS                                      #
 ################################################################################
 
-GREEN	=	\033[38;5;76m
-RED		=	\033[38;5;160m
-YELLOW	=	\033[38;5;226m
-ORANGE	=	\033[38;5;202m
-PURPLE	=	\033[38;5;213m
-LBLUE	=	\033[38;5;51m
-BLUE	=	\033[38;5;117m
-INDI	=	\033[38;5;99m
-RESET	=	\033[00m
+RED			=	\033[1;31m
+YELLOW		=	\033[1;33m
+BLUE		=	\033[1;34m
+GREEN		=	\033[1;32m
+WHITE		=	\033[1;37m
+DEFAULT		=	\033[0m
 
 ################################################################################
 #                                   FILES                                      #
 ################################################################################
-SRCS	=	srcs/function_evaluate_two.c \
-			srcs/function_evaluate.c     \
-			srcs/function_for_order.c    \
-			srcs/function_lst_one.c      \
-			srcs/function_lst_two.c      \
-			srcs/function_utils_two.c    \
-			srcs/function_utils.c        \
-			srcs/new_argc.c              \
-			srcs/rules_push.c            \
-			srcs/rules_reverse_rotate.c  \
-			srcs/rules_rotate.c          \
-			srcs/rules_swap.c            \
-			srcs/split_two.c             \
-			srcs/split.c                 \
-			srcs/table_three.c           \
-			srcs/table_two.c             \
-			srcs/table.c                 \
-			srcs/main.c
+SRC			=	mandatory/function_evaluate_two.c \
+				mandatory/function_evaluate.c     \
+				mandatory/function_for_order.c    \
+				mandatory/function_lst_one.c      \
+				mandatory/function_lst_two.c      \
+				mandatory/function_utils_two.c    \
+				mandatory/function_utils.c        \
+				mandatory/new_argc.c              \
+				mandatory/rules_push.c            \
+				mandatory/rules_reverse_rotate.c  \
+				mandatory/rules_rotate.c          \
+				mandatory/rules_swap.c            \
+				mandatory/split_two.c             \
+				mandatory/split.c                 \
+				mandatory/table_three.c           \
+				mandatory/table_two.c             \
+				mandatory/table.c                 \
+				mandatory/main.c
 
-S_BONUS	=	bonus/bonus.c                       \
-			bonus/function_to_execute_rules.c   \
-			srcs/function_evaluate_two.c        \
-			srcs/function_evaluate.c            \
-			srcs/function_for_order.c           \
-			srcs/function_lst_one.c             \
-			srcs/function_lst_two.c             \
-			srcs/function_utils_two.c           \
-			srcs/function_utils.c               \
-			srcs/new_argc.c                     \
-			srcs/rules_push.c                   \
-			srcs/rules_reverse_rotate.c         \
-			srcs/rules_rotate.c                 \
-			srcs/rules_swap.c                   \
-			srcs/split_two.c                    \
-			srcs/split.c                        \
-			srcs/table_three.c                  \
-			srcs/table_two.c                    \
-			srcs/table.c                        \
-			get_next_line/get_next_line.c       \
-			get_next_line/get_next_line_utils.c \
+SRC_BONUS	=	bonus/main_bonus.c                         \
+				bonus/function_to_execute_rules_bonus.c    \
+				bonus/function_evaluate_two_bonus.c        \
+				bonus/function_evaluate_bonus.c            \
+				bonus/function_for_order_bonus.c           \
+				bonus/function_lst_one_bonus.c             \
+				bonus/function_lst_two_bonus.c             \
+				bonus/function_utils_two_bonus.c           \
+				bonus/function_utils_bonus.c               \
+				bonus/new_argc_bonus.c                     \
+				bonus/rules_push_bonus.c                   \
+				bonus/rules_reverse_rotate_bonus.c         \
+				bonus/rules_rotate_bonus.c                 \
+				bonus/rules_swap_bonus.c                   \
+				bonus/split_two_bonus.c                    \
+				bonus/split_bonus.c                        \
+				bonus/table_three_bonus.c                  \
+				bonus/table_two_bonus.c                    \
+				bonus/table_bonus.c                        \
+				bonus/gnl/get_next_line.c                  \
+				bonus/gnl/get_next_line_utils.c
 
 
 ################################################################################
 #                                   MAKE                                       #
 ################################################################################
 
-OBJS	=	$(SRCS:.c=.o)
+OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-O_BONUS	=	$(S_BONUS:.c=.o)
+OBJ_BONUS	=	$(addprefix $(OBJ_DIR)/, $(SRC_BONUS:.c=.o))
 
-all:		header $(NAME)
+all:	$(NAME)
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-header:
-	@echo "$(ORANGE)Name:$(RESET)    push_swap"
-	@echo "$(ORANGE)Author:  $(RESET)albrusso$(RESET)"
-	@echo "$(ORANGE)Version: $(RESET)v 1.0$(RESET)"
-	@echo
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@printf "$(WHITE)%s$(BLUE)%-$(SIZE)s$(GREEN)%s$(DEFAULT)\n" "Compiling... " "$<" "[OK]"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME):	$(OBJS)
-			@ $(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-			@echo "$(BLUE)push_swap $(GREEN)compiled!$(RESET)"
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)/mandatory
+	@mkdir -p $(OBJ_DIR)/bonus
+	@mkdir -p $(OBJ_DIR)/bonus/gnl
 
-bonus:		$(O_BONUS)
-			$(CC) $(CFLAGS) $(O_BONUS) -o checker
+
+bonus:		$(OBJ_BONUS)
+	@$(CC) $(CFLAGS) $(OBJ_BONUS) -o checker
 
 clean:
-			@ $(RM) $(OBJS) $(O_BONUS)
-			@echo "$(BLUE)push_swap objects file $(YELLOW)removed!$(RESET)"
-			@echo "$(BLUE)checker objects file $(YELLOW)removed!$(RESET)"
+	@for file in $(OBJ); do \
+		printf "$(WHITE)%s$(YELLOW)%-$(SIZE)s$(GREEN)%s$(DEFAULT)\n" "Removing...  " "$$file" "[OK]"; \
+	done
+	@for file in $(OBJ_BONUS); do \
+		printf "$(WHITE)%s$(YELLOW)%-$(SIZE)s$(GREEN)%s$(DEFAULT)\n" "Removing...  " "$$file" "[OK]"; \
+	done
+	@rm -f $(OBJ)
+	@rm -f $(OBJ_BONUS)
+	@rm -rf $(OBJ_DIR)
 
-fclean:		clean
-			@ $(RM) $(NAME)
-			@echo "$(BLUE)push_swap $(YELLOW)removed!$(RESET)"
-			@echo "$(BLUE)checker $(YELLOW)removed!$(RESET)"
+fclean: clean
+	@printf "$(WHITE)%s$(RED)%-$(SIZE)s$(GREEN)%s$(DEFAULT)\n" "Removing...  " "$(NAME)" "[OK]"
+	@printf "$(WHITE)%s$(RED)%-$(SIZE)s$(GREEN)%s$(DEFAULT)\n" "Removing...  " "checker" "[OK]"
+	@rm -f $(NAME)
+	@rm -f checker
 
 re:			fclean all
 
-PHONY:		all header bonus clean fclean re
-
-.SILENT:
+PHONY:		all bonus clean fclean re
